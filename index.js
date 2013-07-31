@@ -1,47 +1,73 @@
 /* jshint node:true */
 "use strict";
 
-var API_URL = "http://api.acoustid.org/v2/lookup";
-
-var domain = require("domain"),
-	querystring = require("querystring"),
-	fpcalc = require("fpcalc"),
-	hyperquest = require("hyperquest"),
-	concat = require("concat-stream");
+var fpcalc = require("fpcalc");
 
 module.exports = function(file, options, callback) {
-	var d = domain.create()
-		.on("error", callback);
+	// Get fingerprint of file
+	fpcalc(file, function(err, result) {
+		if (err) return callback(err);
+		// Return track info
+		getinfo(result, options, callback);
+	});
+};
 
-	fpcalc(file, d.intercept(function(result) {
-		// @TODO GZip this
-		var buf = new Buffer(querystring.stringify({
-			format: "json",
-			meta: "recordings releasegroups compress",
-			client: options.key,
-			duration: result.duration,
-			fingerprint: result.fingerprint,
-		}));
+// -- Get track information given fingerprint
 
-		var req = hyperquest.post(API_URL);
-		req.setHeader("Content-Type", "application/x-www-form-urlencoded");
-		req.setHeader("Content-Length", buf.length);
-		req.end(buf);
+var querystring = require("querystring"),
+	concat = require("concat-stream");
 
-		req.on("response", function(res) {
+function getinfo(fp, options, callback) {
+	// Create request to http service
+	var req = request({
+		format: "json",
+		meta: "recordings releasegroups compress",
+		client: options.key,
+		duration: fp.duration,
+		fingerprint: fp.fingerprint,
+	});
+
+	req.on("error", callback);
+	req.on("response", function(res) {
+		res.pipe(concat(function(data) {
+			var results;
+
+			// Expect 200 response
 			if (res.statusCode !== 200) {
-				return callback(new Error(res.statsuCode));
+				return callback(new Error(data));
 			}
 
-			res.pipe(concat(function(data) {
-				var results = JSON.parse(data);
+			// Expect valid JSON response body
+			try {
+				results = JSON.parse(data);
+			}
+			catch (err) {
+				return callback(err);
+			}
 
-				if (results.status !== "ok") {
-					return callback(new Error(data));
-				}
+			// Expect "ok" status in json object
+			if (results.status !== "ok") {
+				return callback(new Error(data));
+			}
 
-				callback(null, results.results);
-			}));
-		});
-	}));
-};
+			// Return results
+			callback(null, results.results);
+		}));
+	});
+}
+
+// -- Create HTTP request object
+
+var API_URL = "http://api.acoustid.org/v2/lookup",
+	hyperquest = require("hyperquest");
+
+function request(params) {
+	var req = hyperquest.post(API_URL),
+		query = querystring.stringify(params),
+		buf = new Buffer(query);
+	req.setHeader("Content-Type", "application/x-www-form-urlencoded");
+	req.setHeader("Content-Length", buf.length);
+	// @TODO GZip the request body
+	req.end(buf);
+	return req;
+}
