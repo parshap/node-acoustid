@@ -1,0 +1,26 @@
+{
+  "name": "acoustid",
+  "version": "0.0.0",
+  "description": "Get music metadata from AcoustID Web Service",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/parshap/node-acoustid"
+  },
+  "keywords": [
+    "acoustid",
+    "music",
+    "audio",
+    "metadata",
+    "meta",
+    "mp3"
+  ],
+  "author": "Parsha Pourkhomami",
+  "license": "Public Domain",
+  "devDependencies": {
+    "tape": "~1"
+  }
+}
