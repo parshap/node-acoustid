@@ -20,6 +20,11 @@
   ],
   "author": "Parsha Pourkhomami",
   "license": "Public Domain",
+  "dependencies": {
+    "fpcalc": "~1",
+    "hyperquest": "",
+    "concat-stream": "~1"
+  },
   "devDependencies": {
     "tape": "~1"
   }
