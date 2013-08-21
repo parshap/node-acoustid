@@ -27,6 +27,8 @@ Looks up information about the given audio file.
 *Options* must be an object with the following keys:
 
  * `key`: Your AcoustID Web Service API Key
+ * `meta`: Meta parameter used in AcoustID API call (default: all meta
+   data) (see [docs](http://acoustid.org/webservice#lookup))
 
 *Callback* must be a function that will be called with `callback(err,
 results)`.

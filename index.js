@@ -17,11 +17,13 @@ module.exports = function(file, options, callback) {
 var querystring = require("querystring"),
 	concat = require("concat-stream");
 
+var META_DEFAULT = "recordings releases releasegroups tracks usermeta sources";
+
 function getinfo(fp, options, callback) {
 	// Create request to http service
 	var req = request({
 		format: "json",
-		meta: "recordings releasegroups compress",
+		meta: options.meta || META_DEFAULT,
 		client: options.key,
 		duration: fp.duration,
 		fingerprint: fp.fingerprint,
