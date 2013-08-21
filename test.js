@@ -2,7 +2,7 @@
 "use strict";
 
 var path = require("path"),
-	acoustid = require("../"),
+	acoustid = require("./"),
 	test = require("tape"),
 	assert = require("assert");
 

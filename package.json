@@ -4,7 +4,7 @@
   "description": "Get music metadata from AcoustID Web Service",
   "main": "index.js",
   "scripts": {
-    "test": "node test/*.js"
+    "test": "node test.js"
   },
   "repository": {
     "type": "git",
