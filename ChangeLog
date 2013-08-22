@@ -1,0 +1,8 @@
+Version 1.1.0
+
+ * Added `options.meta` to control the *meta* parameter used in the
+   AcoustID API call
+
+Version 1.0.0
+
+ * Initial release to access AcoustID Web Service
