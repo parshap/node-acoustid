@@ -4,12 +4,6 @@
 var fpcalc = require("fpcalc");
 
 module.exports = function(file, options, callback) {
-	// Get fingerprint of file
-	if (! callback) {
-		callback = options;
-		options = {};
-	}
-
 	fpcalc(file, options, function(err, result) {
 		if (err) return callback(err);
 		// Return track info
