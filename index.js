@@ -4,6 +4,10 @@
 var fpcalc = require("fpcalc");
 
 module.exports = function(file, options, callback) {
+	if ( ! options || ! options.key) {
+		throw new Error("Options object with `options.key` is required.");
+	}
+
 	fpcalc(file, options, function(err, result) {
 		if (err) return callback(err);
 		// Return track info
