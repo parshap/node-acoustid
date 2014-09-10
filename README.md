@@ -29,6 +29,7 @@ Looks up information about the given audio file.
  * `key`: Your AcoustID Web Service API Key
  * `meta`: Meta parameter used in AcoustID API call (default: all meta
    data) (see [docs](http://acoustid.org/webservice#lookup))
+ * `command`: (optional) path to the fpcalc binary
 
 *Callback* must be a function that will be called with `callback(err,
 results)`.
