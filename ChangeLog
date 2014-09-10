@@ -1,3 +1,6 @@
+Version 1.1.1
+ * options are now passed directly to fpcalc
+
 Version 1.1.0
 
  * Added `options.meta` to control the *meta* parameter used in the
