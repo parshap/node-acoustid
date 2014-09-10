@@ -15,7 +15,6 @@ function callback(err, results) {
 }
 ```
 
-
 # Documentation
 
 ## `acoustid(file, options, callback)`
@@ -26,18 +25,18 @@ Looks up information about the given audio file.
 
 *Options* must be an object with the following keys:
 
- * `key`: Your AcoustID Web Service API Key
- * `meta`: Meta parameter used in AcoustID API call (default: all meta
-   data) (see [docs](http://acoustid.org/webservice#lookup))
- * `command`: (optional) path to the fpcalc binary
+ * `key`: Your AcoustID Web Service API Key (**required**)
+ * `meta`: Meta parameter used in AcoustID API call (optional, default:
+   all meta data) (see [docs](http://acoustid.org/webservice#lookup))
+ * `fpcalc`: Passed to *fpcalc* as options (optional, see [*fpcalc*
+   docs][fpcalc docs])
 
 *Callback* must be a function that will be called with `callback(err,
 results)`.
 
 # Installation 
 
-This module depends on
-[node-fpcalc](https://github.com/parshap/node-fpcalc) to calculate audio
+This module depends on [node-fpcalc][fpcalc] to calculate audio
 fingerprints. **The [*fpcalc* command-line
 tool](http://acoustid.org/chromaprint) must be installed.** This is
 often available via your package manager (e.g., `apt-get install
@@ -46,3 +45,6 @@ libchromaprint-tools` or `brew install chromaprint`).
 ```
 npm install acoustid
 ```
+
+[fpcalc]: https://github.com/parshap/node-fpcalc
+[fpcalc docs]: https://github.com/parshap/node-fpcalc#api

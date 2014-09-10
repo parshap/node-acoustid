@@ -8,7 +8,7 @@ module.exports = function(file, options, callback) {
 		throw new Error("Options object with `options.key` is required.");
 	}
 
-	fpcalc(file, options, function(err, result) {
+	fpcalc(file, options.fpcalc || {}, function(err, result) {
 		if (err) return callback(err);
 		// Return track info
 		getinfo(result, options, callback);
