@@ -21,7 +21,7 @@ function callback(err, results) {
 
 Looks up information about the given audio file.
 
-*File* must be the path to an audio file.
+*File* must be the path to an audio file or a readable stream.
 
 *Options* must be an object with the following keys:
 
